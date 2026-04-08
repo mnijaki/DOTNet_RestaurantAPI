@@ -1,0 +1,53 @@
+@RestaurantAPI_HostAddress = https://localhost:44320/
+
+### GetAllRestaurants()
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/
+Accept: application/json
+###
+
+### GetRestaurantByIdRoute()
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/7
+Accept: application/json
+###
+
+### GetRestaurantByIdQuery()
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/GetRestaurantById?id=7
+Accept: application/json
+###
+
+### CreateRestaurant()
+### There must be a blank line separating headers from the body
+### The structure is: Request line → Headers → Blank line → Body
+POST {{RestaurantAPI_HostAddress}}/api/restaurant/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Pizza Poznan4",
+  "description": "desc",
+  "category": "pizza",
+  "email": "piz@gmail.com",
+  "phoneNumber": "2332323",
+  "hasDelivery": false,
+  "city": "Krakow",
+  "street": "Main street",
+  "zipCode": "32-222"
+}
+###
+
+### UpdateRestaurant()
+PUT {{RestaurantAPI_HostAddress}}/api/restaurant/6
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Pizza Poznan Updated2",
+  "description": "desc Updated2",
+  "hasDelivery": true
+}
+###
+
+### DeleteRestaurant()
+DELETE {{RestaurantAPI_HostAddress}}/api/restaurant/7
+Accept: application/json
+###
