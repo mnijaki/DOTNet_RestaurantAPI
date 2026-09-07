@@ -17,9 +17,6 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IR
             .ToList();    
         
         // Map Restaurant entity to RestaurantDTO.
-        // The below approach is not good, because for each class and each action you will have to do this mapping when you want to return RestaurantDTO.
-        // var restaurantsDTO = restaurants.Select(r => new RestaurantDTO { ID = r.Id, Name = r.Name });
-        // Instead use AutoMapper package.
         var restaurantsDTO = mapper.Map<IEnumerable<RestaurantDTO>>(restaurants);
         return restaurantsDTO;
     }

@@ -41,7 +41,8 @@ public class RestaurantController(IRestaurantService restaurantService) : Contro
     [HttpPost]
     public IActionResult CreateRestaurant([FromBody] CreateRestaurantDTO createRestaurantDTO)
     {
-        // ModelState is a property of the ControllerBase class. It contains all validation errors.
+        // ModelState is a property of the ControllerBase class.
+        // It contains all validation errors.
         if (!ModelState.IsValid)
         {
             // Return BadRequest with all validation errors.

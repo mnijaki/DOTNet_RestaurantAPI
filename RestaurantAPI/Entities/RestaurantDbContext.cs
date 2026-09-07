@@ -4,12 +4,11 @@ namespace RestaurantAPI.Entities;
 
 public class RestaurantDbContext : DbContext
 {
-    // Declare properties that represents tables in Database.
+    // Declare properties that represent tables in Database.
     public DbSet<Restaurant> Restaurants { get; set; } = null!;
     public DbSet<Dish> Dishes { get; set; } = null!;
     public DbSet<Address> Addresses { get; set; } = null!;
     
-    //private const string ConnectionString = "Server=MAREKLAPTOP\\SQLEXPRESS;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True;";
     private const string _CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True;";
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,20 +39,5 @@ public class RestaurantDbContext : DbContext
             .Property(a => a.Street)
             .IsRequired()
             .HasMaxLength(50);
-        
-        // Seed entities with data (populate with data).
-        // This woul require also adding migration fie that will populate tables with proper data.
-        // modelBuilder.Entity<Restaurant>().HasData(
-        //     new Restaurant 
-        //     { 
-        //         Id = 1, 
-        //         Name = "<NAME>", 
-        //         Description = "Pizza", 
-        //         Category = "Italian", 
-        //         AddressId = 1, 
-        //         Email = "<EMAIL>", 
-        //         PhoneNumber = "123456789", 
-        //         HasDelivery = true }
-        // );
     }
 }

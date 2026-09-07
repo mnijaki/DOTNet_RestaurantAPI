@@ -2,21 +2,23 @@
 
 namespace RestaurantAPI;
 
-// Seed Restaurant entity with data.
 public class RestaurantSeeder(RestaurantDbContext dbContext)
 {
     public void Seed()
     {
-        // Check if database is connected.
         if (dbContext.Database.CanConnect())
         {
-            // Check if Restaurant table had any records.
-            if (!dbContext.Restaurants.Any())
+            if (IsRestaurantDatabaseNotSeeded())
             {
                 dbContext.Restaurants.AddRange(GetRestaurants());
                 dbContext.SaveChanges();
             }
         }
+    }
+
+    private bool IsRestaurantDatabaseNotSeeded()
+    {
+        return !dbContext.Restaurants.Any();
     }
 
     private IEnumerable<Restaurant> GetRestaurants()

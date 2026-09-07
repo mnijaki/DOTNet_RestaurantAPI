@@ -4,12 +4,11 @@ using RestaurantAPI.Models;
 
 namespace RestaurantAPI;
 
-// Class instantiated in 'Program.cs' by DI container.
 public class RestaurantMappingProfile : Profile
 {
     public RestaurantMappingProfile()
     {
-        // Need to explicitly define mappings for address fields since we have flattened it out from Address entity into RestaurantDTO.
+        // Need to explicitly define mappings for address fields since it is flattened from Address entity in RestaurantDTO.
         CreateMap<Restaurant, RestaurantDTO>()
             .ForMember(restaurantDTO => restaurantDTO.City, 
                 memberConfigurationExpression => memberConfigurationExpression.MapFrom(restaurant => restaurant.Address.City))
