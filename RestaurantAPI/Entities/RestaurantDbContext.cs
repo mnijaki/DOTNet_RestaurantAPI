@@ -9,14 +9,13 @@ public class RestaurantDbContext : DbContext
     public DbSet<Dish> Dishes { get; set; } = null!;
     public DbSet<Address> Addresses { get; set; } = null!;
     
-    //private const string ConnectionString = "Server=localhost;Database=RestaurantAPI;Trusted_Connection=True;";
-    //private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=RestaurantDb;Trusted_Connection=True;";
-    private const string ConnectionString = "Server=MAREKLAPTOP\\SQLEXPRESS;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True;";
+    //private const string ConnectionString = "Server=MAREKLAPTOP\\SQLEXPRESS;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True;";
+    private const string _CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True;";
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // Connect to MS SQL Database.
-        optionsBuilder.UseSqlServer(ConnectionString);
+        optionsBuilder.UseSqlServer(_CONNECTION_STRING);
         
         base.OnConfiguring(optionsBuilder);
     }
@@ -43,6 +42,7 @@ public class RestaurantDbContext : DbContext
             .HasMaxLength(50);
         
         // Seed entities with data (populate with data).
+        // This woul require also adding migration fie that will populate tables with proper data.
         // modelBuilder.Entity<Restaurant>().HasData(
         //     new Restaurant 
         //     { 
