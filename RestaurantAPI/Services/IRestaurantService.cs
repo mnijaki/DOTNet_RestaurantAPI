@@ -8,6 +8,6 @@ public interface IRestaurantService
     IEnumerable<RestaurantDTO> GetAllRestaurants();
     RestaurantDTO? GetRestaurantById(int id);
     Restaurant CreateRestaurant(CreateRestaurantDTO createRestaurantDTO);
-    public bool UpdateRestaurant(int id, UpdateRestaurantDTO updateRestaurantDTO);
-    bool DeleteRestaurant(int id);
+    public void UpdateRestaurant(int id, UpdateRestaurantDTO updateRestaurantDTO);
+    void DeleteRestaurant(int id);
 }

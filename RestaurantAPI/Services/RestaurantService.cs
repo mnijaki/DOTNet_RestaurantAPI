@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Entities;
+using RestaurantAPI.Exceptions;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Services;
@@ -23,16 +24,13 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper, ILog
     
     public RestaurantDTO? GetRestaurantById(int id)
     {
-        logger.LogTrace($"Getting restaurant with id: {id}.");
-        logger.LogError("Error logging example");
-        
         var foundRestaurant = context.Restaurants
             .Include(restaurant => restaurant.Address)
             .Include(restaurant => restaurant.Dishes)
             .FirstOrDefault(restaurant => restaurant.Id == id);
         if (foundRestaurant is null)
         {
-            return null;
+            throw new NotFoundException("Restaurant not found.");
         }
         
         var restaurantDTO = mapper.Map<RestaurantDTO>(foundRestaurant);
@@ -48,33 +46,29 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper, ILog
         return restaurant;
     }
 
-    public bool UpdateRestaurant(int id, UpdateRestaurantDTO updateRestaurantDTO)
+    public void UpdateRestaurant(int id, UpdateRestaurantDTO updateRestaurantDTO)
     {
         var restaurant = context.Restaurants.Find(id);
         if (restaurant is null)
         {
-            return false;
+            throw new NotFoundException("Restaurant not found.");
         }
         
         restaurant.Name = updateRestaurantDTO.Name;
         restaurant.Description = updateRestaurantDTO.Description;
         restaurant.HasDelivery = updateRestaurantDTO.HasDelivery;
         context.SaveChanges();
-        
-        return true;
     }
 
-    public bool DeleteRestaurant(int id)
+    public void DeleteRestaurant(int id)
     {
         var restaurant = context.Restaurants.Find(id);
         if (restaurant is null)
         {
-            return false;
+            throw new NotFoundException("Restaurant not found.");
         }
         
         context.Restaurants.Remove(restaurant);
         context.SaveChanges();
-        
-        return true;
     }
 }
