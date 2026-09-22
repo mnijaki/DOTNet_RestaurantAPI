@@ -1,9 +1,14 @@
+using NLog.Web;
 using RestaurantAPI;
 using RestaurantAPI.Entities;
+using RestaurantAPI.Middleware;
 using RestaurantAPI.Services;
 
 // Create builder of the application (creation of Web Host).
 var builder = WebApplication.CreateBuilder(args);
+
+// Add NLog as logging provider.
+builder.UseNLog();
 
 // Ignore circular reference, e.g., Restaurant and Address entities (Restaurant references Address, and Address references Restaurant).
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -14,6 +19,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 #region Inject services.
 
 // Add services to the DI container.
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddDbContext<RestaurantDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<RestaurantSeeder>();
@@ -45,6 +51,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+
+// Add middleware to handle errors.
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // If a client uses HTTP in the address, he will be automatically redirected to the same address but with HTTPS.
 app.UseHttpsRedirection();

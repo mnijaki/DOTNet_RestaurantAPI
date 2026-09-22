@@ -5,7 +5,7 @@ using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Services;
 
-public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IRestaurantService
+public class RestaurantService(RestaurantDbContext context, IMapper mapper, ILogger<RestaurantService> logger) : IRestaurantService
 {
     public IEnumerable<RestaurantDTO> GetAllRestaurants()
     {
@@ -23,6 +23,9 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IR
     
     public RestaurantDTO? GetRestaurantById(int id)
     {
+        logger.LogTrace($"Getting restaurant with id: {id}.");
+        logger.LogError("Error logging example");
+        
         var foundRestaurant = context.Restaurants
             .Include(restaurant => restaurant.Address)
             .Include(restaurant => restaurant.Dishes)

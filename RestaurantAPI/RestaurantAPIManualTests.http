@@ -6,7 +6,7 @@ Accept: application/json
 ###
 
 ### GetRestaurantByIdRoute()
-GET {{RestaurantAPI_HostAddress}}/api/restaurant/7
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/8
 Accept: application/json
 ###
 
