@@ -6,7 +6,7 @@ using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Services;
 
-public class RestaurantService(RestaurantDbContext context, IMapper mapper, ILogger<RestaurantService> logger) : IRestaurantService
+public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IRestaurantService
 {
     public IEnumerable<RestaurantDTO> GetAllRestaurants()
     {

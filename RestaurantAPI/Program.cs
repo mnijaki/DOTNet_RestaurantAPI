@@ -25,6 +25,7 @@ builder.Services.AddDbContext<RestaurantDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<RestaurantSeeder>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+builder.Services.AddScoped<IDishService, DishService>();
 // Register Swagger services that generate documentation (in JSON format) based on the OpenAPI specification.
 builder.Services.AddSwaggerGen();
 

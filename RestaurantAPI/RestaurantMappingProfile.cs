@@ -16,12 +16,13 @@ public class RestaurantMappingProfile : Profile
                 memberConfigurationExpression => memberConfigurationExpression.MapFrom(restaurant => restaurant.Address.Street))
             .ForMember(restaurantDTO => restaurantDTO.ZipCode, 
                 memberConfigurationExpression => memberConfigurationExpression.MapFrom(restaurant => restaurant.Address.ZipCode));
-        
-        CreateMap<Dish, DishDTO>();
 
         CreateMap<CreateRestaurantDTO, Restaurant>()
             .ForMember(restaurant => restaurant.Address, 
                 memberConfigurationExpression => memberConfigurationExpression.MapFrom(
                     createRestaurantDTO => new Address { City = createRestaurantDTO.City, Street = createRestaurantDTO.Street, ZipCode = createRestaurantDTO.ZipCode }));
+        
+        CreateMap<Dish, DishDTO>();
+        CreateMap<CreateDishDTO, Dish>();
     }
 }
