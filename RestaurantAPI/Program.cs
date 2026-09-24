@@ -24,6 +24,8 @@ builder.Services.AddDbContext<RestaurantDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<RestaurantSeeder>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+// Register Swagger services that generate documentation (in JSON format) based on the OpenAPI specification.
+builder.Services.AddSwaggerGen();
 
 #endregion
 
@@ -63,6 +65,13 @@ app.UseRouting();
 
 // Map controller endpoints.
 app.MapControllers();
+
+// Add Swagger middleware that listens to the '/swagger/v1/swagger.json' endpoint to serve the generated documentation.
+// The document is created on the fly via the SwaggerGen service.
+app.UseSwagger();
+// Add Swagger UI middleware to render the interactive web documentation in the browser.
+// SwaggerUI address: https://localhost:44320/swagger/index.html
+app.UseSwaggerUI();
 
 #endregion
 
