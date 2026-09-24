@@ -20,6 +20,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Add services to the DI container.
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<ResponseTimeMiddleware>();
 builder.Services.AddDbContext<RestaurantDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<RestaurantSeeder>();
@@ -56,6 +57,9 @@ if (app.Environment.IsDevelopment())
 
 // Add middleware to handle errors.
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+// Add middleware to measure the response time.
+app.UseMiddleware<ResponseTimeMiddleware>();
 
 // If a client uses HTTP in the address, he will be automatically redirected to the same address but with HTTPS.
 app.UseHttpsRedirection();
