@@ -17,5 +17,9 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="6.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
+  <!-- Forces the IDE to display and track the 'Logs' directory, even if it is empty. -->
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
 
 </Project>

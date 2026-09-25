@@ -12,10 +12,9 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IR
     {
         // Entity Framework will create under the hood a proper SQL query to get all Restaurants and return it under 'Restaurants' property.
         // Add the necessary other tables to the result of the SQL query.
-        var restaurants = context.Restaurants.
-            Include(restaurant => restaurant.Address)
-            .Include(restaurant => restaurant.Dishes)
-            .ToList();    
+        var restaurants = context.Restaurants
+            .Include(restaurant => restaurant.Address)
+            .Include(restaurant => restaurant.Dishes);    
         
         // Map Restaurant entity to RestaurantDTO.
         var restaurantsDTO = mapper.Map<IEnumerable<RestaurantDTO>>(restaurants);

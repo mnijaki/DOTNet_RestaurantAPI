@@ -4,5 +4,7 @@ namespace RestaurantAPI.Services;
 
 public interface IDishService
 {
-    int CreateDish(CreateDishDTO createDishDTO, int restaurantId);
+    IEnumerable<DishDTO> GetAllDishes(int restaurantId);
+    DishDTO GetDishById(int dishId);
+    int CreateDish(int restaurantId, CreateDishDTO createDishDTO);
 }

@@ -8,11 +8,31 @@ namespace RestaurantAPI.Controllers;
 [Route("api/restaurant/{restaurantId:int}/[controller]")]
 public class DishController(IDishService dishService) : ControllerBase
 {
-    [HttpPost]
-    public ActionResult CreateDish([FromBody]CreateDishDTO createDishDTO, [FromRoute]int restaurantId)
+    [HttpGet]
+    public ActionResult<IEnumerable<DishDTO>> GetAllDishes([FromRoute]int restaurantId)
     {
-        var dishId = dishService.CreateDish(createDishDTO, restaurantId);
-        // TODO:Fix path to newly created dish.
-        return CreatedAtAction(nameof(CreateDish), new { restaurantId = restaurantId, dishId = dishId }, null);
+        IEnumerable<DishDTO> dishesDTO = dishService.GetAllDishes(restaurantId);
+        return Ok(dishesDTO);
+    }
+    
+    [HttpGet("{dishId:int}")]
+    public ActionResult<DishDTO> GetDishByIdRoute([FromRoute]int dishId)
+    {
+        DishDTO dishDTO = dishService.GetDishById(dishId);
+        return Ok(dishDTO);
+    }
+    
+    [HttpGet("GetDishById")]
+    public ActionResult<DishDTO> GetDishByIdQuery([FromQuery] int dishId)
+    {
+        DishDTO dishDTO = dishService.GetDishById(dishId);
+        return Ok(dishDTO);
+    }
+    
+    [HttpPost]
+    public ActionResult CreateDish([FromRoute] int restaurantId, [FromBody] CreateDishDTO createDishDTO)
+    {
+        var dishId = dishService.CreateDish(restaurantId, createDishDTO);
+        return CreatedAtAction(nameof(GetDishByIdRoute), new {restaurantId = restaurantId, dishId = dishId }, null);
     }
 }

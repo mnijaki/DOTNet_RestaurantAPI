@@ -52,6 +52,21 @@ DELETE {{RestaurantAPI_HostAddress}}/api/restaurant/7
 Accept: application/json
 ###
 
+### GetAllDishes()
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/dish
+Accept: application/json
+###
+
+### GetDishByIdRoute()
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/1
+Accept: application/json
+###
+
+### GetDishByIdQuery()
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/GetDishById?dishId=1
+Accept: application/json
+###
+
 ### CreateDish()
 ### There must be a blank line separating headers from the body
 ### The structure is: Request line → Headers → Blank line → Body
