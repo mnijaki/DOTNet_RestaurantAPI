@@ -23,7 +23,7 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IR
     
     public RestaurantDTO? GetRestaurantById(int id)
     {
-        var foundRestaurant = context.Restaurants
+        Restaurant? foundRestaurant = context.Restaurants
             .Include(restaurant => restaurant.Address)
             .Include(restaurant => restaurant.Dishes)
             .FirstOrDefault(restaurant => restaurant.Id == id);
@@ -47,7 +47,7 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IR
 
     public void UpdateRestaurant(int id, UpdateRestaurantDTO updateRestaurantDTO)
     {
-        var restaurant = context.Restaurants.Find(id);
+        Restaurant? restaurant = context.Restaurants.Find(id);
         if (restaurant is null)
         {
             throw new NotFoundException("Restaurant not found.");
@@ -61,7 +61,7 @@ public class RestaurantService(RestaurantDbContext context, IMapper mapper) : IR
 
     public void DeleteRestaurant(int id)
     {
-        var restaurant = context.Restaurants.Find(id);
+        Restaurant? restaurant = context.Restaurants.Find(id);
         if (restaurant is null)
         {
             throw new NotFoundException("Restaurant not found.");

@@ -30,7 +30,7 @@ public class RestaurantController(IRestaurantService restaurantService) : Contro
     }
 
     [HttpPost]
-    public IActionResult CreateRestaurant([FromBody] CreateRestaurantDTO createRestaurantDTO)
+    public ActionResult<RestaurantDTO> CreateRestaurant([FromBody] CreateRestaurantDTO createRestaurantDTO)
     {
         var restaurant = restaurantService.CreateRestaurant(createRestaurantDTO);
         // Return 201 Created with a location header pointing to a newly created restaurant.
@@ -41,10 +41,10 @@ public class RestaurantController(IRestaurantService restaurantService) : Contro
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult UpdateRestaurant([FromRoute] int id, [FromBody] UpdateRestaurantDTO updateRestaurantDTO)
+    public IActionResult UpdateRestaurant([FromRoute] int id, [FromBody] UpdateRestaurantDTO updateRestaurantDTO)
     {
         restaurantService.UpdateRestaurant(id, updateRestaurantDTO);
-        return Ok(); 
+        return NoContent(); 
     }
 
     [HttpDelete("{id:int}")]

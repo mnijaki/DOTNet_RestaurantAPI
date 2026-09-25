@@ -16,23 +16,37 @@ public class DishController(IDishService dishService) : ControllerBase
     }
     
     [HttpGet("{dishId:int}")]
-    public ActionResult<DishDTO> GetDishByIdRoute([FromRoute]int dishId)
+    public ActionResult<DishDTO> GetDishByIdRoute([FromRoute]int restaurantId, [FromRoute]int dishId)
     {
-        DishDTO dishDTO = dishService.GetDishById(dishId);
+        DishDTO dishDTO = dishService.GetDishById(restaurantId, dishId);
         return Ok(dishDTO);
     }
     
     [HttpGet("GetDishById")]
-    public ActionResult<DishDTO> GetDishByIdQuery([FromQuery] int dishId)
+    public ActionResult<DishDTO> GetDishByIdQuery([FromRoute]int restaurantId, [FromQuery] int dishId)
     {
-        DishDTO dishDTO = dishService.GetDishById(dishId);
+        DishDTO dishDTO = dishService.GetDishById(restaurantId, dishId);
         return Ok(dishDTO);
     }
     
     [HttpPost]
-    public ActionResult CreateDish([FromRoute] int restaurantId, [FromBody] CreateDishDTO createDishDTO)
+    public ActionResult<DishDTO> CreateDish([FromRoute] int restaurantId, [FromBody] CreateDishDTO createDishDTO)
     {
         var dishId = dishService.CreateDish(restaurantId, createDishDTO);
         return CreatedAtAction(nameof(GetDishByIdRoute), new {restaurantId = restaurantId, dishId = dishId }, null);
+    }
+    
+    [HttpDelete("DeleteAllDishesByRestaurantId")]
+    public IActionResult DeleteAllDishesByRestaurantId([FromRoute] int restaurantId)
+    {
+        dishService.DeleteAllDishesByRestaurantId(restaurantId);
+        return NoContent();
+    }
+    
+    [HttpDelete("{dishId:int}")]
+    public IActionResult DeleteDish([FromRoute]int restaurantId, [FromRoute] int dishId)
+    {
+        dishService.DeleteDish(restaurantId, dishId);
+        return NoContent();
     }
 }

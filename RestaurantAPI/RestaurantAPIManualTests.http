@@ -58,19 +58,19 @@ Accept: application/json
 ###
 
 ### GetDishByIdRoute()
-GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/1
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/2
 Accept: application/json
 ###
 
 ### GetDishByIdQuery()
-GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/GetDishById?dishId=1
+GET {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/GetDishById?dishId=2
 Accept: application/json
 ###
 
 ### CreateDish()
 ### There must be a blank line separating headers from the body
 ### The structure is: Request line → Headers → Blank line → Body
-POST {{RestaurantAPI_HostAddress}}/api/restaurant/6/Dish
+POST {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish
 Content-Type: application/json
 Accept: application/json
 
@@ -79,4 +79,14 @@ Accept: application/json
   "description": "Best hamburger in the town",
   "price": 10
 }
+###
+
+### DeleteAllDishesByRestaurantId()
+DELETE {{RestaurantAPI_HostAddress}}/api/restaurant/2/Dish/DeleteAllDishesByRestaurantId
+Accept: application/json
+###
+
+### DeleteDish()
+DELETE {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/13
+Accept: application/json
 ###
