@@ -36,6 +36,13 @@ public class DishController(IDishService dishService) : ControllerBase
         return CreatedAtAction(nameof(GetDishByIdRoute), new {restaurantId = restaurantId, dishId = dishId }, null);
     }
     
+    [HttpPut("{dishId:int}")]
+    public IActionResult UpdateDish([FromRoute] int restaurantId, [FromRoute] int dishId, [FromBody] UpdateDishDTO updateDishDTO)
+    {
+        dishService.UpdateDish(restaurantId, dishId, updateDishDTO);
+        return NoContent();
+    }
+    
     [HttpDelete("DeleteAllDishesByRestaurantId")]
     public IActionResult DeleteAllDishesByRestaurantId([FromRoute] int restaurantId)
     {

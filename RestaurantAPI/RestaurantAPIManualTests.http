@@ -81,6 +81,18 @@ Accept: application/json
 }
 ###
 
+### UpdateDish()
+PUT {{RestaurantAPI_HostAddress}}/api/restaurant/1/Dish/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Poznan Hamburger Updated",
+  "description": "Best hamburger in the town Updated",
+  "price": 67
+}
+###
+
 ### DeleteAllDishesByRestaurantId()
 DELETE {{RestaurantAPI_HostAddress}}/api/restaurant/2/Dish/DeleteAllDishesByRestaurantId
 Accept: application/json

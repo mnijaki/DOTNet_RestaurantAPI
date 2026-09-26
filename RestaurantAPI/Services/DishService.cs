@@ -44,6 +44,26 @@ public class DishService(RestaurantDbContext context, IMapper mapper) : IDishSer
         return dish.Id;
     }
 
+    public void UpdateDish(int restaurantId, int dishId, UpdateDishDTO updateDishDTO)
+    {
+        Restaurant restaurant = GetRestaurantById(restaurantId);
+        if (restaurant.Dishes is null)
+        {
+            throw new NotFoundException($"Restaurant with id [{restaurantId}] has no dishes");
+        }
+        
+        Dish? dish = restaurant.Dishes.FirstOrDefault(d => d.Id == dishId);
+        if (dish is null)
+        {
+            throw new NotFoundException($"Dish with id [{dishId}] not found for restaurant with id [{restaurantId}]");
+        }
+
+        dish.Name = updateDishDTO.Name;
+        dish.Description = updateDishDTO.Description;
+        dish.Price = updateDishDTO.Price;
+        context.SaveChanges();
+    }
+
     public void DeleteAllDishesByRestaurantId(int restaurantId)
     {
         Restaurant restaurant = GetRestaurantById(restaurantId);
